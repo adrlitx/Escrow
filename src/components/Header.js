@@ -1,40 +1,37 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from 'styled-components';
-import styled, { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from './themes';
+import React from 'react';
+import './../App.css';
+import Logo from './Logo'; // Import the Logo component
 
-const StyledHeader = styled.header`
-  background-color: ${props => props.theme.background};
-  color: ${props => props.theme.onBackground};
-`;
+const Header = ({ toggleMenu }) => {
 
-function Header({ toggleTheme }) {
-  const theme = useContext(ThemeContext);
+  const toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      window.localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      window.localStorage.setItem('theme', 'dark');
+    }
+  };
 
   return (
-    <StyledHeader>
-      <h1>Dashboard</h1>
+    <header className="header">
+      <div className="logo-container">
+        <Logo height="32px" /> 
+        <h4>NOANE Escrow</h4>
+      </div>
+      <button className="menu-button" onClick={toggleMenu}>Menu</button>
       <div className="theme-toggle">
         <input
           type="checkbox"
-          id="theme-toggle-input"
+          id="theme-toggle"
           onChange={toggleTheme}
-          checked={theme === 'light'}
         />
-        <label htmlFor="theme-toggle-input" className="theme-toggle-slider"></label>
+        <label htmlFor="theme-toggle" className="theme-toggle-slider"></label>
       </div>
-    </StyledHeader>
+    </header>
   );
 }
 
-function ThemedHeader({ toggleTheme }) {
-  const theme = useContext(ThemeContext);
-
-  return (
-    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-      <Header toggleTheme={toggleTheme} />
-    </ThemeProvider>
-  );
-}
-
-export default ThemedHeader;
+export default Header;

@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from './components/themes';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import './App.css';
-
+import Header from './components/Header';
+import SideMenu from './components/SideMenu'; // Import SideMenu component
+import Footer from './components/Footer';
 
 function App() {
-  const [theme, setTheme] = useState('dark');
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
-    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-      <div className="App">
-        <Header toggleTheme={toggleTheme} />
+    <div className="App">
+      <Header toggleMenu={toggleMenu} />
+      <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
+      <div className="content-container">
+        {/* Your content goes here */}
         <div>LFG!</div>
-        <Footer />
       </div>
-    </ThemeProvider>
+      <Footer />
+    </div>
   );
 }
 
