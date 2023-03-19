@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -16,7 +15,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "bcrypt": "^5.1.0",
+    "flask": "^0.2.10",
+    "hashlib": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,17 +46,10 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0"
-=======
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "flask": "^0.2.10",
-    "hashlib": "^1.0.1"
-  },
-  "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^8.36.0",
     "eslint-plugin-react": "^7.32.2"
->>>>>>> 0285b16c7d2f2ded0ec217b7857d24362459cf70
   }
 }
+
+

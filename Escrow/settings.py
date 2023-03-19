@@ -1,4 +1,6 @@
 import os
+from google.oauth2.credentials import Credentials
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '<your_secret_key>'
@@ -51,12 +53,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '<your_database_name>',
-        'USER': '<your_database_user>',
-        'PASSWORD': '<your_database_password>',
-        'HOST': '<your_database_host>',
-        'PORT': '<your_database_port>',
+        'default': dj_database_url.config(
+        default='postgres://rnogplee:V5NvLWZD-BAvCnC5kVKygQ8BdDaCbU8O@heffalump.db.elephantsql.com/rnogplee'
+    )
     }
 }
 
@@ -65,8 +64,16 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '<your_client_id>'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '<your_client_secret>'
+GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
+
+if GOOGLE_OAUTH2_CLIENT_ID and GOOGLE_OAUTH2_CLIENT_SECRET:
+    credentials = Credentials.from_authorized_user_info(info=None, scopes=['openid', 'profile', 'email'])
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_OAUTH2_CLIENT_ID
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_OAUTH2_CLIENT_SECRET
+    SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email']
+    SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_PARAMS = {'access_type': 'offline'}
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
