@@ -1,9 +1,10 @@
 import React from 'react';
 import './../App.css';
 import Logo from './Logo'; // Import the Logo component
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
 
 const Header = ({ toggleMenu }) => {
-
   const toggleTheme = () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     if (currentTheme === 'dark') {
@@ -18,20 +19,25 @@ const Header = ({ toggleMenu }) => {
   return (
     <header className="header">
       <div className="logo-container">
-        <Logo height="32px" /> 
-        <h4>NOANE Escrow</h4>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Logo height="32px" /> 
+          <h4 style={{ marginLeft: '10px' }}>NOANE Escrow</h4>
+        </div>
       </div>
-      <button className="menu-button" onClick={toggleMenu}>Menu</button>
-      <div className="theme-toggle">
-        <input
-          type="checkbox"
-          id="theme-toggle"
-          onChange={toggleTheme}
-        />
-        <label htmlFor="theme-toggle" className="theme-toggle-slider"></label>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="theme-toggle">
+          <DarkModeOutlinedIcon style={{ color: '#2ac9b0', marginRight: '5px' }} />
+          <input
+            type="checkbox"
+            id="theme-toggle"
+            onChange={toggleTheme}
+          />
+          <label htmlFor="theme-toggle" className="theme-toggle-slider"></label>
+        </div>
+        <button className="menu-button" onClick={toggleMenu}><TuneOutlinedIcon/></button>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
